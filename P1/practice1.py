@@ -39,13 +39,15 @@ print("(" + str(numpy.mean(X)) + " " + str(numpy.mean(Y)) + ")")
 print("Cov matrix")
 print(numpy.array([[cov(X, X), cov(X, Y)], [cov(Y, X), cov(Y, Y)]]))
 
-plt.title("Corr")
+print("Corr matrix")
 print(numpy.corrcoef(X, Y))
 
+plt.title("Scatter plot")
 plt.scatter(X, Y)
 plt.grid()
 plt.savefig("test2.png")
 plt.close()
+
 print("\nPart 2")
 X1 = numpy.array([17, 11, 11])
 X2 = numpy.array([17, 9, 8])
@@ -63,7 +65,18 @@ print("\nPart 3")
 p = numpy.array([5, 6, 7])
 Na = normal_dist(p, 4, 1)
 Nb = normal_dist(p, 8, 4)
-plt.plot(p, Na)
-plt.plot(p, Nb)
+plt.plot(p, Na, "rs", label="Na")
+plt.plot(p, Nb, "bs", label="Nb")
+plt.legend()
 plt.grid()
 plt.savefig("test3.png")
+
+range1 = numpy.arange(5, 7, 0.01)
+tmp1 = normal_dist(range1, 4, 1)
+tmp2 = normal_dist(range1, 8, 4)
+
+for i in range(len(range1)):
+    if abs(tmp1[i] - tmp2[i]) < 0.0001:
+        print("draw ", end="")
+        print(range1[i])
+        break
