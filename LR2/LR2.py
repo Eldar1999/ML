@@ -41,3 +41,25 @@ print(pca.singular_values_)
 plt.scatter(pca_data[:, 0], pca_data[:, 1], c=labels)
 plt.savefig("fig3.png")
 plt.close()
+
+pca_data = pca.inverse_transform(pca_data)
+
+fig, axs = plt.subplots(2, 4)
+fig.set_size_inches(16, 10)
+for i in range(data.shape[1] - 1):
+    axs[i // 4, i % 4].scatter(pca_data[:, i], pca_data[:, (i + 1)], c=labels)
+    axs[i // 4, i % 4].set_xlabel(var_names[i])
+    axs[i // 4, i % 4].set_ylabel(var_names[i + 1])
+fig.savefig("fig4.png")
+plt.close(fig)
+
+pca = PCA(n_components=2, svd_solver="full")
+pca_data = pca.fit(data).transform(data)
+
+print(pca.explained_variance_ratio_)
+print(int(sum(pca.explained_variance_ratio_) * 100))
+print(pca.singular_values_)
+
+plt.scatter(pca_data[:, 0], pca_data[:, 1], c=labels)
+plt.savefig("fig5.png")
+plt.close()
